@@ -16,7 +16,7 @@ export const SearchPage = () => {
 
       <CustomBreadCrumbs
         currentPage="Buscador de héroes"
-        breadCrumbs={[{ label: "Inicio", to: "/" }]}
+        // breadCrumbs={[{ label: "Inicio", to: "/" }]}
       />
 
       {/* Stats Dashboard */}
