@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router";
+
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+
 import type { Hero } from "@/types/hero.interface";
 
 interface Props {
@@ -11,13 +14,19 @@ interface Props {
 }
 
 export const HeroGridCard = ({ hero }: Props) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/heroes/${hero.slug}`);
+  };
+
   return (
-    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
+    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50 cursor-pointer">
       <div className="relative overflow-hidden">
         <img
           src={hero.image}
           alt={hero.alias}
           className="w-full h-auto object-contain transition-all duration-500 group-hover:scale-105"
+          onClick={handleClick}
         />
 
         {/* Status indicator */}
@@ -48,7 +57,7 @@ export const HeroGridCard = ({ hero }: Props) => {
         <Button
           size="sm"
           variant="ghost"
-          className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+          className="absolute bottom-3 right-3 bg-white/90 hover:bg-white cursor-pointer"
         >
           <Heart className="h-4 w-4 fill-red-500 text-red-500" />
         </Button>
@@ -57,7 +66,8 @@ export const HeroGridCard = ({ hero }: Props) => {
         <Button
           size="sm"
           variant="ghost"
-          className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
+          className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+          onClick={handleClick}
         >
           <Eye className="h-4 w-4 text-gray-600" />
         </Button>
@@ -140,7 +150,7 @@ export const HeroGridCard = ({ hero }: Props) => {
           <h4 className="font-medium text-sm">Powers:</h4>
           <div className="flex flex-wrap gap-1">
             {hero.powers.slice(0, 2).map((power) => (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="outline" className="text-xs" key={power}>
                 {power}
               </Badge>
             ))}
