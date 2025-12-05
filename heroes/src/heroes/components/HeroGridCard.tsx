@@ -33,7 +33,7 @@ export const HeroGridCard = ({ hero }: Props) => {
         <div className="absolute top-3 left-3 flex items-center gap-2">
           <div
             className={`w-3 h-3 rounded-full ${
-              hero.status === "Active" ? "bg-green-500" : "bg-red-500"
+              hero.status === "Activo" ? "bg-green-500" : "bg-red-500"
             }`}
           />
           <Badge
