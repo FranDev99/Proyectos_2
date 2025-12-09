@@ -1,0 +1,50 @@
+import { createContext, useState, type PropsWithChildren } from "react";
+
+import type { Hero } from "@/types/hero.interface";
+
+interface FavoriteHeroContext {
+  //state
+  favorites: Hero[];
+  favoriteCount: number;
+
+  //methods
+  toggleFavorite: (hero: Hero) => void;
+  isFavorite: (hero: Hero) => boolean;
+}
+
+export const FavoriteHeroContext = createContext({} as FavoriteHeroContext);
+
+export const FavoriteHeroContextProvider = ({
+  children,
+}: PropsWithChildren) => {
+  const [favorites, setFavorites] = useState<Hero[]>([]);
+
+  const toggleFavorite = (hero: Hero) => {
+    const heroExist = favorites.find((h) => h.id === hero.id);
+
+    if (heroExist) {
+      setFavorites(favorites.filter((h) => h.id !== hero.id));
+      return;
+    }
+
+    setFavorites([...favorites, hero]);
+  };
+
+  const isFavorite = (hero: Hero) => favorites.some((h) => h.id === hero.id);
+
+  return (
+    <FavoriteHeroContext
+      value={{
+        //state
+        favorites: favorites,
+        favoriteCount: favorites.length,
+
+        //methods
+        isFavorite: isFavorite,
+        toggleFavorite: toggleFavorite,
+      }}
+    >
+      {children}
+    </FavoriteHeroContext>
+  );
+};
