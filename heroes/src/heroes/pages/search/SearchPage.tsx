@@ -4,8 +4,21 @@ import { SearchControls } from "./ui/SearchControls";
 import { HeroGrid } from "@/heroes/components/HeroGrid";
 import { CustomPagination } from "@/components/custom/CustomPagination";
 import { CustomBreadCrumbs } from "@/components/custom/CustomBreadCrumbs";
+import { useQuery } from "@tanstack/react-query";
+import { searchHeroesAction } from "@/heroes/actions/search-hero.action";
+import { useSearchParams } from "react-router";
 
 export const SearchPage = () => {
+  const [searchParams] = useSearchParams();
+
+  const name = searchParams.get("name") ?? undefined;
+
+  const { data = [] } = useQuery({
+    queryKey: ["search", { name }],
+    queryFn: () => searchHeroesAction({ name }),
+    staleTime: 1000 * 60 * 5,
+  });
+
   return (
     <>
       {/* Header */}
@@ -25,7 +38,8 @@ export const SearchPage = () => {
       {/* Controls */}
       <SearchControls />
 
-      <HeroGrid heroes={[]} />
+      {/* Heroes */}
+      <HeroGrid heroes={data} />
 
       <CustomPagination totalPages={5} />
     </>
