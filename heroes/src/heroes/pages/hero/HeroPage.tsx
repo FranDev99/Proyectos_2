@@ -191,17 +191,18 @@ export const HeroPage = () => {
               <Card className="text-center">
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-4">
-                    <div className="bg-red-100 p-3 rounded-full">
-                      <Zap className="w-8 h-8 text-red-600" />
+                    <div className="bg-orange-100 p-3 rounded-full">
+                      <Zap className="w-8 h-8 text-orange-500" />
                     </div>
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Fuerza</h3>
-                  <div className="text-3xl font-bold text-red-600 mb-2">
+                  <div className="text-3xl font-bold text-orange-500 mb-2">
                     {superheroData.strength}
                   </div>
                   <Progress
                     value={superheroData.strength * 10}
                     className="h-2"
+                    activeColor="bg-orange-500"
                   />
                 </CardContent>
               </Card>
@@ -210,17 +211,18 @@ export const HeroPage = () => {
               <Card className="text-center">
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-4">
-                    <div className="bg-purple-100 p-3 rounded-full">
-                      <Brain className="w-8 h-8 text-purple-600" />
+                    <div className="bg-blue-100 p-3 rounded-full">
+                      <Brain className="w-8 h-8 text-blue-500" />
                     </div>
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Inteligencia</h3>
-                  <div className="text-3xl font-bold text-purple-600 mb-2">
+                  <div className="text-3xl font-bold text-blue-500 mb-2">
                     {superheroData.intelligence}
                   </div>
                   <Progress
                     value={superheroData.intelligence * 10}
                     className="h-2"
+                    activeColor="bg-blue-500"
                   />
                 </CardContent>
               </Card>
@@ -229,15 +231,19 @@ export const HeroPage = () => {
               <Card className="text-center">
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-4">
-                    <div className="bg-yellow-100 p-3 rounded-full">
-                      <Gauge className="w-8 h-8 text-yellow-600" />
+                    <div className="bg-green-100 p-3 rounded-full">
+                      <Gauge className="w-8 h-8 text-green-500" />
                     </div>
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Velocidad</h3>
-                  <div className="text-3xl font-bold text-yellow-600 mb-2">
+                  <div className="text-3xl font-bold text-green-500 mb-2">
                     {superheroData.speed}
                   </div>
-                  <Progress value={superheroData.speed * 10} className="h-2" />
+                  <Progress
+                    value={superheroData.speed * 10}
+                    className="h-2"
+                    activeColor="bg-green-500"
+                  />
                 </CardContent>
               </Card>
 
@@ -245,17 +251,18 @@ export const HeroPage = () => {
               <Card className="text-center">
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-4">
-                    <div className="bg-green-100 p-3 rounded-full">
-                      <Shield className="w-8 h-8 text-green-600" />
+                    <div className="bg-purple-100 p-3 rounded-full">
+                      <Shield className="w-8 h-8 text-purple-500" />
                     </div>
                   </div>
                   <h3 className="font-semibold text-lg mb-2">Resistencia</h3>
-                  <div className="text-3xl font-bold text-green-600 mb-2">
+                  <div className="text-3xl font-bold text-purple-500 mb-2">
                     {superheroData.durability}
                   </div>
                   <Progress
                     value={superheroData.durability * 10}
                     className="h-2"
+                    activeColor="bg-purple-500"
                   />
                 </CardContent>
               </Card>
@@ -274,6 +281,7 @@ export const HeroPage = () => {
                       <Progress
                         value={superheroData.strength * 10}
                         className="h-4"
+                        activeColor="bg-orange-500"
                       />
                     </div>
                     <div className="w-12 text-right font-bold">
@@ -286,6 +294,7 @@ export const HeroPage = () => {
                       <Progress
                         value={superheroData.intelligence * 10}
                         className="h-4"
+                        activeColor="bg-blue-500"
                       />
                     </div>
                     <div className="w-12 text-right font-bold">
@@ -298,6 +307,7 @@ export const HeroPage = () => {
                       <Progress
                         value={superheroData.speed * 10}
                         className="h-4"
+                        activeColor="bg-green-500"
                       />
                     </div>
                     <div className="w-12 text-right font-bold">
@@ -310,6 +320,7 @@ export const HeroPage = () => {
                       <Progress
                         value={superheroData.durability * 10}
                         className="h-4"
+                        activeColor="bg-purple-500"
                       />
                     </div>
                     <div className="w-12 text-right font-bold">
