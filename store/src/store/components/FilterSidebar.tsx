@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router";
 
 export const FilterSidebar = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentSizes = searchParams.get("sizes")?.split("-") || [];
+  const currentSizes = searchParams.get("sizes")?.split(",") || [];
   const currentPrice = searchParams.get("price") || "any";
 
   const handleSizeFilter = (size: string) => {
@@ -14,7 +14,7 @@ export const FilterSidebar = () => {
       ? currentSizes.filter((s) => s !== size)
       : [...currentSizes, size];
 
-    searchParams.set("sizes", newSizes.join("-"));
+    searchParams.set("sizes", newSizes.join(","));
     searchParams.set("page", "1");
     setSearchParams(searchParams);
   };
