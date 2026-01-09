@@ -9,10 +9,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { currencyFormatter } from "@/lib/currency-formatter";
+import { useProducts } from "@/store/hooks/useProducts";
 import { PlusIcon } from "lucide-react";
 import { Link } from "react-router";
 
 export const AdminProductsPage = () => {
+  const { data } = useProducts();
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -33,7 +37,6 @@ export const AdminProductsPage = () => {
       <Table className="bg-white p-10 shadow-xs border border-gray-200 mb-10">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-25">ID</TableHead>
             <TableHead>Imagen</TableHead>
             <TableHead>Nombre</TableHead>
             <TableHead>Precio</TableHead>
@@ -44,28 +47,33 @@ export const AdminProductsPage = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow>
-            <TableCell className="font-medium">INV001</TableCell>
-            <TableCell>
-              <img
-                src=""
-                alt=""
-                className="w-20 h-20 object-cover rounded-md"
-              />
-            </TableCell>
-            <TableCell>Camiseta</TableCell>
-            <TableCell>$250</TableCell>
-            <TableCell>Categoría 1</TableCell>
-            <TableCell>25</TableCell>
-            <TableCell>S,M,L</TableCell>
-            <TableCell className="text-right">
-              <Link to={`/admin/products/t-shirt-teslo`}>Editar</Link>
-            </TableCell>
-          </TableRow>
+          {data?.products.map((product) => (
+            <TableRow>
+              <TableCell>
+                <img
+                  src={product.images[0]}
+                  alt={product.title}
+                  className="w-20 h-20 object-cover rounded-md"
+                />
+              </TableCell>
+              <TableCell>
+                <Link to={`/admin/products/${product.id}`}>
+                  {product.title}
+                </Link>
+              </TableCell>
+              <TableCell>{currencyFormatter(product.price)}</TableCell>
+              <TableCell>{product.gender}</TableCell>
+              <TableCell>{product.stock}</TableCell>
+              <TableCell>{product.sizes}</TableCell>
+              <TableCell className="text-right">
+                <Link to={`/admin/products/${product.id}`}>Editar</Link>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
 
-      <CustomPagination totalPages={5} />
+      <CustomPagination totalPages={data?.pages || 0} />
     </>
   );
 };
