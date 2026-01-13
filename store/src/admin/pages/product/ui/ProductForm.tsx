@@ -17,10 +17,16 @@ interface Props {
   isPending: boolean;
 
   //Methods
-  onSubmit: (productLike: Partial<Product>) => Promise<void>;
+  onSubmit: (
+    productLike: Partial<Product> & { files?: File[] }
+  ) => Promise<void>;
 }
 
 const availableSizes: Size[] = ["XS", "S", "M", "L", "XL", "XXL"];
+
+interface FormInputs extends Product {
+  files?: File[];
+}
 
 export const ProductForm = ({
   title,
@@ -37,7 +43,7 @@ export const ProductForm = ({
     getValues,
     setValue,
     watch,
-  } = useForm({
+  } = useForm<FormInputs>({
     defaultValues: product,
   });
 
@@ -94,6 +100,9 @@ export const ProductForm = ({
     if (!files) return;
 
     setFiles((prev) => [...prev, ...Array.from(files)]);
+
+    const currentFiles = getValues("files") || [];
+    setValue("files", [...currentFiles, ...Array.from(files)]);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,6 +110,9 @@ export const ProductForm = ({
     if (!files) return;
 
     setFiles((prev) => [...prev, ...Array.from(files)]);
+
+    const currentFiles = getValues("files") || [];
+    setValue("files", [...currentFiles, ...Array.from(files)]);
   };
 
   return (
