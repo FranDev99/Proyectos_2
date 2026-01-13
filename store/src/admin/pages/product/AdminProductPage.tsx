@@ -1,10 +1,5 @@
-import { AdminTitle } from "@/admin/components/AdminTitle";
 import { Navigate, useParams } from "react-router";
 
-import { useState } from "react";
-import { X, Plus, Upload, Tag, SaveAll } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
 import { useProduct } from "@/admin/hooks/useProduct";
 import { CustomFullScreenLoading } from "@/components/custom/CustomFullScreenLoading";
 import { ProductForm } from "./ui/ProductForm";
@@ -24,7 +19,12 @@ interface Product {
 
 export const AdminProductPage = () => {
   const { id } = useParams();
-  const { isLoading, isError, data: product } = useProduct(id || "");
+  const {
+    isLoading,
+    isError,
+    data: product,
+    handleSubmitForm,
+  } = useProduct(id || "");
 
   const title = id === "new" ? "Nuevo producto" : "Editar producto";
   const subTitle =
@@ -44,5 +44,12 @@ export const AdminProductPage = () => {
     return <Navigate to="/admin/products" />;
   }
 
-  return <ProductForm title={title} subTitle={subTitle} product={product} />;
+  return (
+    <ProductForm
+      title={title}
+      subTitle={subTitle}
+      product={product}
+      onSubmit={handleSubmitForm}
+    />
+  );
 };
