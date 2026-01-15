@@ -19,12 +19,17 @@ export const createUpdateProductAction = async (productLike: Partial<Product> & 
         images.push(...newImageNames);
     }
 
+    const imagesToSave = images.map(image => {
+        if (image.includes('http')) return image.split('/').pop() || '';
+        return image;
+    })
+
     const { data } = await tesloApi<Product>({
         url: isCreating ? '/products' : `/products/${id}`,
         method: isCreating ? 'POST' : 'PATCH',
         data: {
             ...rest,
-            images: images,
+            images: imagesToSave,
         }
     })
 
