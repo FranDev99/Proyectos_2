@@ -8,6 +8,7 @@ const app: Application = express()
 
 connectDB()
 
+app.use(express.json())
 app.use('/', router)
 
 export default app
