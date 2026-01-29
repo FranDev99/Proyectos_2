@@ -1,15 +1,22 @@
 import type { Request, Response } from 'express'
+import { validationResult } from "express-validator"
 import slug from 'slug'
 import User from "../models/User"
 import { hashPassword } from '../utils/auth'
 
 export const createAccount = async (req: Request, res: Response) => {
 
+    // Manejo de errores
+    let errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+
     const { email, password } = req.body || {}
 
     const userExists = await User.findOne({ email })
     if (userExists) {
-        const error = new Error('El usuario ya esta registrado')
+        const error = new Error('El email ya esta registrado por otro usuario')
         return res.status(409).json({ error: error.message })
     }
 
