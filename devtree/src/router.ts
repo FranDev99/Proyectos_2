@@ -1,6 +1,7 @@
 import { Router } from "express"
 import { body } from "express-validator"
 import { createAccount, login } from "./handlers";
+import { handleInputErrors } from "./middleware/validation";
 
 const router: Router = Router()
 
@@ -12,11 +13,13 @@ router.post('/auth/register',
     body('name').notEmpty().withMessage('Nombre de usuario no valido'),
     body('email').isEmail().withMessage('Email de usuario no valido'),
     body('password').isLength({ min: 8 }).withMessage('Contraseña de usuario no valido, son mínimo 8 caracteres'),
+    handleInputErrors,
     createAccount)
 
 router.post('/auth/login',
     body('email').isEmail().withMessage('Email de usuario no valido'),
     body('password').isLength({ min: 8 }).withMessage('Contraseña de usuario no valido'),
+    handleInputErrors,
     login
 )
 
