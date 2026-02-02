@@ -42,6 +42,9 @@ importers:
       '@types/slug':
         specifier: ^5.0.9
         version: 5.0.9
+      chokidar:
+        specifier: ^3.6.0
+        version: 3.6.0
       nodemon:
         specifier: ^3.1.11
         version: 3.1.11
