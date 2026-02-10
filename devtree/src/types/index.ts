@@ -3,5 +3,9 @@ export type FormType = {
     email: string;
     handle: string;
     password: string;
-    password_confirmation: string;
+}
+
+export type RegisterFormType = Pick<FormType, 'handle' | 'email' | 'name'> & {
+    password: string,
+    password_confirmation: string,
 }
