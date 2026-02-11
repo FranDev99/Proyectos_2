@@ -4,6 +4,7 @@ import slug from 'slug'
 import User from "../models/User"
 import { checkPassword, hashPassword } from '../utils/auth'
 import { handleInputErrors } from '../middleware/validation'
+import { generateJWT } from '../utils/jws'
 
 export const createAccount = async (req: Request, res: Response) => {
 
@@ -18,7 +19,7 @@ export const createAccount = async (req: Request, res: Response) => {
     const handle = slug(req.body.handle, '')
     const handleExists = await User.findOne({ handle })
     if (handleExists) {
-        const error = new Error('El nombre de usuario no esta disponible')
+        const error = new Error('El handle de usuario no esta disponible')
         return res.status(409).json({ error: error.message })
     }
 
@@ -44,9 +45,10 @@ export const login = async (req: Request, res: Response) => {
     // Comprobar el password
     const isPasswordCorrect = await checkPassword(password, user.password)
     if (!isPasswordCorrect) {
-        const error = new Error('Password Incorrecto')
+        const error = new Error('Contraseña Incorrecta')
         return res.status(401).json({ error: error.message })
     }
 
-    res.status(201).send('Autenticado')
+    const token = generateJWT({ id: user._id })
+    res.status(201).send(token)
 }
