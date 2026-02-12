@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-type UserType = {
+export type UserType = {
     handle: string,
     name: string,
     email: string,
