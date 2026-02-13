@@ -1,6 +1,6 @@
 import { Router } from "express"
 import { body } from "express-validator"
-import { createAccount, getUser, login } from "./handlers";
+import { createAccount, getUser, login, updateProfile } from "./handlers";
 import { handleInputErrors } from "./middleware/validation";
 import { authenticate } from "./middleware/auth";
 
@@ -24,6 +24,12 @@ router.post('/auth/login',
     login
 )
 
+//Obtención de la información del usuario autenticado
 router.get('/user', authenticate, getUser)
+
+router.patch('/user',
+    body('handle').notEmpty().withMessage('Handle de usuario no valido'),
+    body('description').notEmpty().withMessage('Descripción de usuario no valida'),
+    handleInputErrors, authenticate, updateProfile)
 
 export default router
