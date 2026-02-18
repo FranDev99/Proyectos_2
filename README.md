@@ -1,0 +1,49 @@
+# 📁 Proyectos Full Stack – React + Node.js
+Este repositorio reúne mis proyectos full stack construidos para dominar React en frontend y Node.js en backend. Cada proyecto incluye su API propia y está listo para ejecutarse localmente.
+
+| Proyecto | Frontend | Backend | Descripción                                   |
+| -------- | -------- | ------- | --------------------------------------------- |
+| Devtree  | ✅        | ✅       | Gestor de enlaces sociales + imagen de perfil |
+| Heroes   | ✅        | ✅       | Explorador DC/Marvel con filtros y paginación |
+| Store    | ✅        | ✅       | Ecommerce con panel administrativo completo   |
+
+```
+Proyectos_2/
+├─ devtree/           # Frontend enlaces sociales
+├─ devtree-backend/   # API gestión usuarios/imágenes
+├─ heroes/            # Frontend personajes cómics
+├─ heroes-backend/    # API datos personajes
+├─ store/             # Frontend ecommerce
+└─ store-backend/     # API productos + autenticación
+```
+
+## 🚀 Quick Start
+### 1. Clonar
+```
+git clone https://github.com/FranDev99/Proyectos_2.git
+```
+
+### 2. Para cualquier proyecto (ejemplo: devtree)
+```
+cd devtree 
+npm install
+npm run dev         Frontend
+npm run start:dev   Backend (si aplica)
+```
+
+## 📋 Detalle de proyectos
+### Devtree – Gestor de enlaces personales
+
+Página tipo "Linktree" para centralizar redes sociales.
+
+### Características:
+
+✅ Lista editable de enlaces
+
+✅ Subida de imagen de perfil (Cloudinary)
+
+✅ Descripción personalizada
+
+✅ Diseño tipo tarjeta compartible
+
+
