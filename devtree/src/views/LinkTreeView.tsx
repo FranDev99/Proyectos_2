@@ -5,11 +5,19 @@ import { DevTreeInput } from "../components/DevTreeInput";
 export const LinkTreeView = () => {
   const [devTreeLinks, setDevTreeLinks] = useState(social);
 
+  const handleUrlChange = () => {
+    return;
+  };
+
   return (
     <>
       <div className="space-y-5">
         {devTreeLinks.map((item) => (
-          <DevTreeInput key={item.name} item={item} />
+          <DevTreeInput
+            key={item.name}
+            item={item}
+            handleUrlChange={handleUrlChange}
+          />
         ))}
       </div>
     </>
