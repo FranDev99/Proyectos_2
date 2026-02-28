@@ -5,6 +5,7 @@ export type FormType = {
     _id: string;
     description: string;
     image: string;
+    links: string;
 }
 
 export type RegisterFormType = Pick<FormType, 'handle' | 'email' | 'name'> & {
