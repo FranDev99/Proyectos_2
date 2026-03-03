@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 import NavigationTabs from "../components/NavigationTabs";
 import { getUser } from "../api/DevTreeApi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { SocialNetwork } from "../types";
 import { DevTreeLink } from "../components/DevTreeLink";
 
@@ -19,6 +19,12 @@ export default function AppLayout() {
   const [enabledLinks, setEnabledLinks] = useState<SocialNetwork[]>(
     JSON.parse(data!.links).filter((item: SocialNetwork) => item.enabled),
   );
+
+  useEffect(() => {
+    setEnabledLinks(
+      JSON.parse(data!.links).filter((item: SocialNetwork) => item.enabled),
+    );
+  }, [data]);
 
   if (isLoading) return "Cargando...";
 
