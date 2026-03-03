@@ -4,6 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 import NavigationTabs from "../components/NavigationTabs";
 import { getUser } from "../api/DevTreeApi";
+import { useState } from "react";
+import type { SocialNetwork } from "../types";
+import { DevTreeLink } from "../components/DevTreeLink";
 
 export default function AppLayout() {
   const { data, isLoading, isError } = useQuery({
@@ -12,6 +15,10 @@ export default function AppLayout() {
     retry: 1,
     refetchOnWindowFocus: false,
   });
+
+  const [enabledLinks, setEnabledLinks] = useState<SocialNetwork[]>(
+    JSON.parse(data!.links).filter((item: SocialNetwork) => item.enabled),
+  );
 
   if (isLoading) return "Cargando...";
 
@@ -66,6 +73,12 @@ export default function AppLayout() {
               <p className="text-center text-lg font-black text-white">
                 {data?.description}
               </p>
+
+              <div className="mt-20 flex flex-col gap-5">
+                {enabledLinks.map((link) => (
+                  <DevTreeLink key={link.name} link={link} />
+                ))}
+              </div>
             </div>
           </div>
         </main>
