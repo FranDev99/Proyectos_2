@@ -1,5 +1,11 @@
 import { Link, Outlet } from "react-router";
 import { Toaster } from "sonner";
+import { DndContext, type DragEndEvent, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from "@dnd-kit/sortable";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 import NavigationTabs from "../components/NavigationTabs";
@@ -31,6 +37,8 @@ export default function AppLayout() {
   if (isError) {
     return <Navigate to={"/auth/login"} />;
   }
+
+  const handleDragEnd = (e: DragEndEvent) => {};
 
   return (
     <>
@@ -80,11 +88,21 @@ export default function AppLayout() {
                 {data?.description}
               </p>
 
-              <div className="mt-20 flex flex-col gap-5">
-                {enabledLinks.map((link) => (
-                  <DevTreeLink key={link.name} link={link} />
-                ))}
-              </div>
+              <DndContext
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
+                <div className="mt-20 flex flex-col gap-5">
+                  <SortableContext
+                    items={enabledLinks}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    {enabledLinks.map((link) => (
+                      <DevTreeLink key={link.name} link={link} />
+                    ))}
+                  </SortableContext>
+                </div>
+              </DndContext>
             </div>
           </div>
         </main>
