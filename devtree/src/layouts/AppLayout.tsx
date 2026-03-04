@@ -6,12 +6,12 @@ import {
   verticalListSortingStrategy,
   arrayMove,
 } from "@dnd-kit/sortable";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Navigate } from "react-router";
 import NavigationTabs from "../components/NavigationTabs";
 import { getUser } from "../api/DevTreeApi";
 import { useEffect, useState } from "react";
-import type { SocialNetwork } from "../types";
+import type { FormType, SocialNetwork } from "../types";
 import { DevTreeLink } from "../components/DevTreeLink";
 
 export default function AppLayout() {
@@ -38,7 +38,29 @@ export default function AppLayout() {
     return <Navigate to={"/auth/login"} />;
   }
 
-  const handleDragEnd = (e: DragEndEvent) => {};
+  const queryClient = useQueryClient();
+
+  const handleDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+    if (over && over.id) {
+      const prevIndex = enabledLinks.findIndex((link) => link.id === active.id);
+      const newIndex = enabledLinks.findIndex((link) => link.id === over?.id);
+      const order = arrayMove(enabledLinks, prevIndex, newIndex);
+      setEnabledLinks(order);
+
+      const disabledLinks: SocialNetwork[] = JSON.parse(data!.links).filter(
+        (item: SocialNetwork) => !item.enabled,
+      );
+      const links = [...order, ...disabledLinks];
+
+      queryClient.setQueryData(["user"], (prevData: FormType) => {
+        return {
+          ...prevData,
+          links: JSON.stringify(links),
+        };
+      });
+    }
+  };
 
   return (
     <>
