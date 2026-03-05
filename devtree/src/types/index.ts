@@ -8,6 +8,8 @@ export type FormType = {
     links: string;
 }
 
+export type Handle = Pick<FormType, 'handle' | 'description' | 'image' | 'links' | 'name'>
+
 export type RegisterFormType = Pick<FormType, 'handle' | 'email' | 'name'> & {
     password: string,
     password_confirmation: string,
